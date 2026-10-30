@@ -1,0 +1,12 @@
+#!/bin/sh
+# Verificações antes do commit. Instalação (uma vez por clone):
+#   git config core.hooksPath .githooks
+set -e
+
+root=$(git rev-parse --show-toplevel)
+
+if command -v python3 >/dev/null 2>&1; then
+    exec python3 "$root/tests/check.py"
+fi
+
+echo "pre-commit: python3 não encontrado, verificação ignorada" >&2

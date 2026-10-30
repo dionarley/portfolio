@@ -1,0 +1,64 @@
+name: checks
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  static:
+    name: Static checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run checks
+        run: python3 tests/check.py
+
+  docker:
+    name: Docker build and smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t portfolio:ci .
+
+      - name: Smoke test served files
+        run: |
+          set -euo pipefail
+
+          docker run -d --name portfolio -p 8080:80 portfolio:ci
+
+          for _ in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8080/ >/dev/null 2>&1; then
+              break
+            fi
+            sleep 1
+          done
+
+          fail() {
+            echo "::error::$1"
+            docker logs portfolio
+            exit 1
+          }
+
+          expect() {
+            local path="$1"
+            local expected="$2"
+            local headers
+            headers=$(curl -sSI "http://127.0.0.1:8080${path}") || fail "falha ao requisitar ${path}"
+            echo "$headers" | head -1 | grep -q "200" || fail "${path} não respondeu 200"
+            echo "$headers" | grep -qi "content-type: .*${expected}" || fail "${path} com content-type inesperado"
+          }
+
+          curl -fsS http://127.0.0.1:8080/ | grep -q '<html lang="pt-BR">' || fail "index.html sem lang pt-BR"
+          curl -fsS http://127.0.0.1:8080/ | grep -q "Dionarley" || fail "index.html sem o nome no conteúdo"
+
+          expect /styles.css "text/css"
+          expect /script.js "javascript"
+          expect /LICENSE "text/plain"
+
+      - name: Container logs
+        if: failure()
+        run: docker logs portfolio || true

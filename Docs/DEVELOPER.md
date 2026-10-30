@@ -59,6 +59,9 @@ docker-compose down
 ├── nginx.conf        # Server config with caching
 ├── docker-compose.yml  # Service definitions
 ├── .dockerignore     # Excludes
+├── tests/check.py    # Verificações antes do commit
+├── .githooks/        # Hook de pre-commit
+├── .github/          # Workflow de CI
 ├── index.html       # Main page
 ├── styles.css       # Styles
 └── script.js        # Interactivity
@@ -119,9 +122,19 @@ docker-compose up --build
 ## Validation
 
 ```bash
-# Validate HTML
-npx html-validate index.html
+# Verificações estáticas: HTML, CSS, JS, assets e contexto Docker
+python3 tests/check.py
 ```
+
+O hook de pre-commit roda o mesmo script. Ative uma vez por clone:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+O workflow `.github/workflows/ci.yml` repete as verificações no push e em
+pull requests, constrói a imagem e testa os arquivos servidos (`/`,
+`/styles.css`, `/script.js`, `/LICENSE`).
 
 ## Git Workflow
 

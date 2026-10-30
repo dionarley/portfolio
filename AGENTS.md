@@ -14,6 +14,9 @@ portfolio/
 ├── Dockerfile      # Docker image definition
 ├── nginx.conf     # Nginx configuration
 ├── docker-compose.yml  # Docker Compose setup
+├── tests/check.py  # Verificações antes do commit
+├── .githooks/      # Hooks do git (pre-commit)
+├── .github/        # CI (GitHub Actions)
 ├── README.md      # Project documentation
 └── LICENSE        # CC BY-SA 4.0 license
 ```
@@ -51,16 +54,15 @@ docker-compose down
 ### Testing
 
 - **Manual**: Open http://localhost:8080 in browser
-- **Validate HTML**: Install html-validate (`npm i -g html-validate`) and run:
-  ```bash
-  html-validate index.html
-  ```
+- **Automated**: `python3 tests/check.py` valida HTML, CSS, JS, assets e o contexto Docker
+- **Pre-commit hook**: `git config core.hooksPath .githooks` (uma vez por clone) bloqueia commits quebrados
+- **CI**: `.github/workflows/ci.yml` roda as verificações, constrói a imagem e testa os arquivos servidos
 
-### Single Test (HTML Validation)
+### Single Test
 
 ```bash
-# Validate HTML with html-validate
-npx html-validate index.html
+# Verificações estáticas (rápidas, sem dependências)
+python3 tests/check.py
 ```
 
 ## Code Style Guidelines
