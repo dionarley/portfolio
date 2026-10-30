@@ -1,58 +1,86 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dionarley R Vieira - Desenvolvedor & Maker</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dionarley R Vieira — Desenvolvedor &amp; Maker</title>
+
+    <meta name="description" content="Portfólio de Dionarley R Vieira, desenvolvedor e maker de Minas Gerais: automação com shell script, modelagem 3D, eletrônica e desenvolvimento web.">
+    <meta name="author" content="Dionarley R Vieira">
+    <meta name="theme-color" content="#1a1f14">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:title" content="Dionarley R Vieira — Desenvolvedor &amp; Maker">
+    <meta property="og:description" content="Transformando ideias em realidade através de código, design e eletrônica.">
+    <meta name="twitter:card" content="summary">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%233d4d1e'/%3E%3Ctext x='50' y='69' font-family='monospace' font-size='54' font-weight='bold' text-anchor='middle' fill='%23e0b418'%3ED%3C/text%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="#home" class="logo"><Dionarley /></a>
-            <ul class="nav-links">
-                <li><a href="#home">Início</a></li>
-                <li><a href="#about">Sobre</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projetos</a></li>
-                <li><a href="#contact">Contato</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    <a class="skip-link" href="#main">Pular para o conteúdo</a>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Olá, eu sou <span class="highlight">Dionarley R Vieira</span></h1>
-                <h2>Desenvolvedor & Maker</h2>
-                <p>Transformando ideias em realidade através de código, design e eletrônica</p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">Ver Meus Projetos</a>
-                    <a href="#contact" class="btn btn-secondary">Entre em Contato</a>
-                </div>
-                <div class="social-links">
-                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="code-block">
-                    <div class="code-header">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
+    <header class="navbar" id="site-header">
+        <div class="container navbar-inner">
+            <a class="logo" href="#home" aria-label="Dionarley R Vieira — voltar ao início">&lt;Dionarley /&gt;</a>
+
+            <button class="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Abrir menu de navegação">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+
+            <nav class="nav" id="primary-nav" aria-label="Navegação principal">
+                <ul class="nav-links">
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projetos</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <section id="home" class="hero" aria-labelledby="hero-title">
+            <div class="container hero-inner">
+                <div class="hero-content">
+                    <h1 id="hero-title">Olá, eu sou <span class="highlight">Dionarley R Vieira</span></h1>
+                    <h2 class="hero-role">
+                        <span class="hero-role-text" aria-hidden="true">Desenvolvedor &amp; Maker</span>
+                        <span class="sr-only">Desenvolvedor e Maker</span>
+                    </h2>
+                    <p>Transformando ideias em realidade através de código, design e eletrônica</p>
+
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">Ver Meus Projetos</a>
+                        <a href="#contact" class="btn btn-secondary">Entre em Contato</a>
                     </div>
-                    <pre><code><span class="comment"># Sobre mim</span>
+
+                    <!-- TODO: substitua os href="#" pelos links dos seus perfis -->
+                    <div class="social-links">
+                        <a href="#" aria-label="GitHub de Dionarley R Vieira"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="LinkedIn de Dionarley R Vieira"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Instagram de Dionarley R Vieira"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="YouTube de Dionarley R Vieira"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <div class="code-block">
+                        <div class="code-header" aria-hidden="true">
+                            <span class="dot dot-red"></span>
+                            <span class="dot dot-yellow"></span>
+                            <span class="dot dot-green"></span>
+                        </div>
+                        <pre><code><span class="comment"># Sobre mim</span>
 <span class="keyword">dev</span> = {
     <span class="string">'nome'</span>: <span class="string">'Dionarley R Vieira'</span>,
     <span class="string">'ano'</span>: <span class="number">1991</span>,
@@ -65,263 +93,286 @@
     ],
     <span class="string">'paixao'</span>: <span class="string">'Criar coisas'</span>
 }</code></pre>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">Sobre Mim</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Sou um desenvolvedor e maker brasileiro de Minas Gerais, nascido em 1991. Com uma paixão por tecnologia que começou cedo, dedico minha vida a criar soluções inovadoras que combinam software, hardware e design.</p>
-                    <p>Minha abordagem única combina habilidades técnicas em programação com pensamento de design para criar produtos do mundo real. Seja escrevendo scripts de automação, modelando em 3D, ou desenvolvendo soluções web, sempre busco a excelência em cada projeto.</p>
-                    <p>Falo português nativamente e tenho experiência em múltiplas áreas da tecnologia, o que me permite ter uma visão holística na resolução de problemas.</p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <span class="stat-number">10+</span>
-                            <span class="stat-label">Anos de Experiência</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">50+</span>
-                            <span class="stat-label">Projetos Completos</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">∞</span>
-                            <span class="stat-label">Ideias Inovadoras</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <div class="image-placeholder">
-                        <i class="fas fa-user"></i>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Minhas Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-terminal"></i>
-                    </div>
-                    <h3>Shell Script</h3>
-                    <p>Automação com CMD, Bash e PowerShell. Scripts robustos para sistemas Linux, Windows e macOS.</p>
-                    <div class="skill-level">
-                        <div class="skill-progress" style="width: 95%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-cube"></i>
-                    </div>
-                    <h3>Modelagem 3D</h3>
-                    <p>Criação de modelos 3D para prototipagem e impressão. Design de produtos físicos e virtuais.</p>
-                    <div class="skill-level">
-                        <div class="skill-progress" style="width: 85%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-microchip"></i>
-                    </div>
-                    <h3>Eletrônica</h3>
-                    <p>Circuitos, microcontroladores e integração hardware-software para projetos maker.</p>
-                    <div class="skill-level">
-                        <div class="skill-progress" style="width: 80%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h3>Design Thinking</h3>
-                    <p>Metodologia para inovação e resolução de problemas focada no usuário e criatividade.</p>
-                    <div class="skill-level">
-                        <div class="skill-progress" style="width: 90%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Web Development</h3>
-                    <p>Desenvolvimento web frontend e backend com HTML, CSS, JavaScript, Python e frameworks modernos.</p>
-                    <div class="skill-level">
-                        <div class="skill-progress" style="width: 85%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h3>Programação Geral</h3>
-                    <p>Diversas linguagens e paradigmas de programação para diferentes necessidades e projetos.</p>
-                    <div class="skill-level">
-                        <div class="skill-progress" style="width: 80%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        <section id="about" class="about" aria-labelledby="about-title">
+            <div class="container">
+                <h2 class="section-title" id="about-title">Sobre Mim</h2>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Projetos</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-robot"></i>
-                        </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Sou um desenvolvedor e maker brasileiro de Minas Gerais, nascido em 1991. Com uma paixão por tecnologia que começou cedo, dedico minha vida a criar soluções inovadoras que combinam software, hardware e design.</p>
+                        <p>Minha abordagem única combina habilidades técnicas em programação com pensamento de design para criar produtos do mundo real. Seja escrevendo scripts de automação, modelando em 3D, ou desenvolvendo soluções web, sempre busco a excelência em cada projeto.</p>
+                        <p>Falo português nativamente e tenho experiência em múltiplas áreas da tecnologia, o que me permite ter uma visão holística na resolução de problemas.</p>
+
+                        <ul class="about-stats">
+                            <li class="stat reveal">
+                                <span class="stat-number">10+</span>
+                                <span class="stat-label">Anos de Experiência</span>
+                            </li>
+                            <li class="stat reveal">
+                                <span class="stat-number">50+</span>
+                                <span class="stat-label">Projetos Completos</span>
+                            </li>
+                            <li class="stat reveal">
+                                <span class="stat-number">&infin;</span>
+                                <span class="stat-label">Ideias Inovadoras</span>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="project-info">
-                        <h3>Automação com Shell Script</h3>
-                        <p>Sistema de automação de tarefas administrativas usando scripts shell para múltiplas plataformas.</p>
-                        <div class="project-tags">
-                            <span>Bash</span>
-                            <span>CMD</span>
-                            <span>PowerShell</span>
-                            <span>Linux</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn-small"><i class="fab fa-github"></i> Código</a>
-                            <a href="#" class="btn-small"><i class="fas fa-external-link-alt"></i> Demo</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-print"></i>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Impressora 3D DIY</h3>
-                        <p>Montagem e configuração de impressora 3D customizada com design próprio e eletrônica integrada.</p>
-                        <div class="project-tags">
-                            <span>3D Modeling</span>
-                            <span>Eletrônica</span>
-                            <span>Arduino</span>
-                            <span>Cura</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn-small"><i class="fas fa-camera"></i> Fotos</a>
-                            <a href="#" class="btn-small"><i class="fas fa-external-link-alt"></i> Ver Mais</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Web App de Gestão</h3>
-                        <p>Aplicação web completa para gestão de projetos e tarefas com dashboard interativo.</p>
-                        <div class="project-tags">
-                            <span>HTML/CSS</span>
-                            <span>JavaScript</span>
-                            <span>Python</span>
-                            <span>SQLite</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn-small"><i class="fab fa-github"></i> Código</a>
-                            <a href="#" class="btn-small"><i class="fas fa-external-link-alt"></i> Demo</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Projeto Maker IoT</h3>
-                        <p>Dispositivo IoT para automação residencial com controle via web e integração com assistentes virtuais.</p>
-                        <div class="project-tags">
-                            <span>ESP32</span>
-                            <span>IoT</span>
-                            <span>Eletrônica</span>
-                            <span>WiFi</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn-small"><i class="fas fa-book"></i> Tutorial</a>
-                            <a href="#" class="btn-small"><i class="fas fa-video"></i> Vídeo</a>
+
+                    <div class="about-image">
+                        <div class="image-placeholder" aria-hidden="true">
+                            <i class="fas fa-user"></i>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Contato</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Vamos trabalhar juntos!</h3>
-                    <p>Estou sempre aberto a novas ideias, projetos colaborativos e conversas sobre tecnologia. Se você tem uma ideia ou precisa de ajuda com um projeto, entre em contato!</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>dionarley@gmail.com</span>
+        <section id="skills" class="skills" aria-labelledby="skills-title">
+            <div class="container">
+                <h2 class="section-title" id="skills-title">Minhas Skills</h2>
+
+                <div class="skills-grid">
+                    <article class="skill-card reveal">
+                        <div class="skill-icon" aria-hidden="true">
+                            <i class="fas fa-terminal"></i>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+55 38 98424-7486</span>
+                        <h3>Shell Script</h3>
+                        <p>Automação com CMD, Bash e PowerShell. Scripts robustos para sistemas Linux, Windows e macOS.</p>
+                        <div class="skill-level" role="progressbar" aria-label="Nível em Shell Script" aria-valuemin="0" aria-valuemax="100" aria-valuenow="95">
+                            <div class="skill-progress" style="--level: 95%"></div>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Minas Gerais, Brasil</span>
+                    </article>
+
+                    <article class="skill-card reveal">
+                        <div class="skill-icon" aria-hidden="true">
+                            <i class="fas fa-cube"></i>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span>Nascido em 1991</span>
+                        <h3>Modelagem 3D</h3>
+                        <p>Criação de modelos 3D para prototipagem e impressão. Design de produtos físicos e virtuais.</p>
+                        <div class="skill-level" role="progressbar" aria-label="Nível em Modelagem 3D" aria-valuemin="0" aria-valuemax="100" aria-valuenow="85">
+                            <div class="skill-progress" style="--level: 85%"></div>
                         </div>
-                    </div>
-                    <div class="social-links-large">
-                        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-                    </div>
+                    </article>
+
+                    <article class="skill-card reveal">
+                        <div class="skill-icon" aria-hidden="true">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <h3>Eletrônica</h3>
+                        <p>Circuitos, microcontroladores e integração hardware-software para projetos maker.</p>
+                        <div class="skill-level" role="progressbar" aria-label="Nível em Eletrônica" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+                            <div class="skill-progress" style="--level: 80%"></div>
+                        </div>
+                    </article>
+
+                    <article class="skill-card reveal">
+                        <div class="skill-icon" aria-hidden="true">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Design Thinking</h3>
+                        <p>Metodologia para inovação e resolução de problemas focada no usuário e criatividade.</p>
+                        <div class="skill-level" role="progressbar" aria-label="Nível em Design Thinking" aria-valuemin="0" aria-valuemax="100" aria-valuenow="90">
+                            <div class="skill-progress" style="--level: 90%"></div>
+                        </div>
+                    </article>
+
+                    <article class="skill-card reveal">
+                        <div class="skill-icon" aria-hidden="true">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Web Development</h3>
+                        <p>Desenvolvimento web frontend e backend com HTML, CSS, JavaScript, Python e frameworks modernos.</p>
+                        <div class="skill-level" role="progressbar" aria-label="Nível em Web Development" aria-valuemin="0" aria-valuemax="100" aria-valuenow="85">
+                            <div class="skill-progress" style="--level: 85%"></div>
+                        </div>
+                    </article>
+
+                    <article class="skill-card reveal">
+                        <div class="skill-icon" aria-hidden="true">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Programação Geral</h3>
+                        <p>Diversas linguagens e paradigmas de programação para diferentes necessidades e projetos.</p>
+                        <div class="skill-level" role="progressbar" aria-label="Nível em Programação Geral" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+                            <div class="skill-progress" style="--level: 80%"></div>
+                        </div>
+                    </article>
                 </div>
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <input type="text" name="name" placeholder="Seu Nome" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Seu E-mail" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="subject" placeholder="Assunto" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" placeholder="Sua Mensagem" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
-                </form>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
+        <section id="projects" class="projects" aria-labelledby="projects-title">
+            <div class="container">
+                <h2 class="section-title" id="projects-title">Projetos</h2>
+
+                <div class="projects-grid">
+                    <!-- TODO: substitua os href="#" pelos links reais de cada projeto -->
+                    <article class="project-card reveal">
+                        <div class="project-image" aria-hidden="true">
+                            <div class="project-placeholder">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Automação com Shell Script</h3>
+                            <p>Sistema de automação de tarefas administrativas usando scripts shell para múltiplas plataformas.</p>
+                            <ul class="project-tags">
+                                <li>Bash</li>
+                                <li>CMD</li>
+                                <li>PowerShell</li>
+                                <li>Linux</li>
+                            </ul>
+                            <div class="project-links">
+                                <a href="#" class="btn-small"><i class="fab fa-github" aria-hidden="true"></i> Código</a>
+                                <a href="#" class="btn-small"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Demo</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal">
+                        <div class="project-image" aria-hidden="true">
+                            <div class="project-placeholder">
+                                <i class="fas fa-print"></i>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Impressora 3D DIY</h3>
+                            <p>Montagem e configuração de impressora 3D customizada com design próprio e eletrônica integrada.</p>
+                            <ul class="project-tags">
+                                <li>3D Modeling</li>
+                                <li>Eletrônica</li>
+                                <li>Arduino</li>
+                                <li>Cura</li>
+                            </ul>
+                            <div class="project-links">
+                                <a href="#" class="btn-small"><i class="fas fa-camera" aria-hidden="true"></i> Fotos</a>
+                                <a href="#" class="btn-small"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Ver Mais</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal">
+                        <div class="project-image" aria-hidden="true">
+                            <div class="project-placeholder">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Web App de Gestão</h3>
+                            <p>Aplicação web completa para gestão de projetos e tarefas com dashboard interativo.</p>
+                            <ul class="project-tags">
+                                <li>HTML/CSS</li>
+                                <li>JavaScript</li>
+                                <li>Python</li>
+                                <li>SQLite</li>
+                            </ul>
+                            <div class="project-links">
+                                <a href="#" class="btn-small"><i class="fab fa-github" aria-hidden="true"></i> Código</a>
+                                <a href="#" class="btn-small"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Demo</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal">
+                        <div class="project-image" aria-hidden="true">
+                            <div class="project-placeholder">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Projeto Maker IoT</h3>
+                            <p>Dispositivo IoT para automação residencial com controle via web e integração com assistentes virtuais.</p>
+                            <ul class="project-tags">
+                                <li>ESP32</li>
+                                <li>IoT</li>
+                                <li>Eletrônica</li>
+                                <li>WiFi</li>
+                            </ul>
+                            <div class="project-links">
+                                <a href="#" class="btn-small"><i class="fas fa-book" aria-hidden="true"></i> Tutorial</a>
+                                <a href="#" class="btn-small"><i class="fas fa-video" aria-hidden="true"></i> Vídeo</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact" aria-labelledby="contact-title">
+            <div class="container">
+                <h2 class="section-title" id="contact-title">Contato</h2>
+
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Vamos trabalhar juntos!</h3>
+                        <p>Estou sempre aberto a novas ideias, projetos colaborativos e conversas sobre tecnologia. Se você tem uma ideia ou precisa de ajuda com um projeto, entre em contato!</p>
+
+                        <ul class="contact-details">
+                            <li class="contact-item">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                                <a href="mailto:dionarley@gmail.com">dionarley@gmail.com</a>
+                            </li>
+                            <li class="contact-item">
+                                <i class="fas fa-phone" aria-hidden="true"></i>
+                                <a href="tel:+5538984247486">+55 38 98424-7486</a>
+                            </li>
+                            <li class="contact-item">
+                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                                <span>Minas Gerais, Brasil</span>
+                            </li>
+                            <li class="contact-item">
+                                <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                                <span>Nascido em 1991</span>
+                            </li>
+                        </ul>
+
+                        <!-- TODO: substitua os href="#" pelos links dos seus perfis -->
+                        <div class="social-links-large">
+                            <a href="#" aria-label="GitHub de Dionarley R Vieira"><i class="fab fa-github" aria-hidden="true"></i></a>
+                            <a href="#" aria-label="LinkedIn de Dionarley R Vieira"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="#" aria-label="Instagram de Dionarley R Vieira"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                            <a href="#" aria-label="YouTube de Dionarley R Vieira"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-group">
+                            <label class="sr-only" for="name">Seu nome</label>
+                            <input id="name" name="name" type="text" placeholder="Seu Nome" autocomplete="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="email">Seu e-mail</label>
+                            <input id="email" name="email" type="email" placeholder="Seu E-mail" autocomplete="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="subject">Assunto</label>
+                            <input id="subject" name="subject" type="text" placeholder="Assunto" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="message">Sua mensagem</label>
+                            <textarea id="message" name="message" placeholder="Sua Mensagem" rows="5" required></textarea>
+                        </div>
+
+                        <p class="form-status" role="status" aria-live="polite" hidden></p>
+
+                        <button type="submit" class="btn btn-primary btn-block">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Dionarley R Vieira. Todos os direitos reservados.</p>
-            <p>Feito com <i class="fas fa-heart"></i> e <i class="fas fa-code"></i> em Minas Gerais</p>
+            <p>&copy; <span id="year">2026</span> Dionarley R Vieira. Todos os direitos reservados.</p>
+            <p>Feito com <i class="fas fa-heart" aria-hidden="true"></i> e <i class="fas fa-code" aria-hidden="true"></i> em Minas Gerais</p>
+            <p class="footer-license">Conteúdo sob licença <a href="LICENSE" rel="license">CC BY-SA 4.0</a>.</p>
         </div>
     </footer>
 

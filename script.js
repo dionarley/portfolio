@@ -1,274 +1,267 @@
-// Mobile Navigation Toggle
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
+/**
+ * Portfolio — interações da página.
+ * Sem dependências: cada bloco sai cedo se o elemento não existir.
+ */
+(() => {
+    'use strict';
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
-});
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const supportsObserver = 'IntersectionObserver' in window;
 
-// Close mobile menu when clicking a link
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-    });
-});
+    /* ----------------------------------------------------------------------
+     * Navegação mobile
+     * -------------------------------------------------------------------- */
+    const navbar = $('.navbar');
+    const navToggle = $('.nav-toggle');
+    const nav = $('#primary-nav');
 
-// Navbar scroll effect
-const navbar = document.querySelector('.navbar');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.style.padding = '10px 0';
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-    } else {
-        navbar.style.padding = '15px 0';
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-    }
-});
+    if (navToggle && nav) {
+        const setNavState = (isOpen) => {
+            nav.classList.toggle('is-open', isOpen);
+            navToggle.setAttribute('aria-expanded', String(isOpen));
+            navToggle.setAttribute(
+                'aria-label',
+                isOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação',
+            );
+        };
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
+        navToggle.addEventListener('click', () => {
+            setNavState(!nav.classList.contains('is-open'));
+        });
 
-// Scroll animations using Intersection Observer
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, observerOptions);
-
-// Add fade-in class to elements and observe them
-document.querySelectorAll('.skill-card, .project-card, .about-text, .contact-info, .stat').forEach(el => {
-    el.classList.add('fade-in');
-    observer.observe(el);
-});
-
-// Animate skill progress bars when they come into view
-const skillCards = document.querySelectorAll('.skill-card');
-const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const progressBar = entry.target.querySelector('.skill-progress');
-            if (progressBar) {
-                const width = progressBar.style.width;
-                progressBar.style.width = '0%';
-                setTimeout(() => {
-                    progressBar.style.width = width;
-                }, 100);
+        // Fecha ao escolher um destino
+        nav.addEventListener('click', (event) => {
+            if (event.target.closest('a')) {
+                setNavState(false);
             }
-        }
-    });
-}, { threshold: 0.5 });
+        });
 
-skillCards.forEach(card => {
-    skillObserver.observe(card);
-});
+        // Fecha ao clicar fora do menu
+        document.addEventListener('click', (event) => {
+            if (!nav.classList.contains('is-open')) return;
+            if (nav.contains(event.target) || navToggle.contains(event.target)) return;
+            setNavState(false);
+        });
 
-// Contact form handling
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
-        
-        // Simple validation
-        if (!data.name || !data.email || !data.subject || !data.message) {
-            showNotification('Por favor, preencha todos os campos', 'error');
-            return;
-        }
-        
-        if (!isValidEmail(data.email)) {
-            showNotification('Por favor, insira um e-mail válido', 'error');
-            return;
-        }
-        
-        // Simulate form submission
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Enviando...';
-        submitBtn.disabled = true;
-        
-        setTimeout(() => {
-            showNotification('Mensagem enviada com sucesso!', 'success');
-            this.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }, 1500);
-    });
-}
+        // Fecha com Escape e devolve o foco ao botão
+        document.addEventListener('keydown', (event) => {
+            if (event.key !== 'Escape' || !nav.classList.contains('is-open')) return;
+            setNavState(false);
+            navToggle.focus();
+        });
 
-// Email validation helper
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-// Notification system
-function showNotification(message, type) {
-    // Remove existing notification
-    const existingNotification = document.querySelector('.notification');
-    if (existingNotification) {
-        existingNotification.remove();
+        // Ao entrar no layout desktop o painel mobile deixa de existir
+        const desktopQuery = window.matchMedia('(min-width: 768px)');
+        desktopQuery.addEventListener('change', (event) => {
+            if (event.matches) setNavState(false);
+        });
     }
-    
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.innerHTML = `
-        <span>${message}</span>
-        <button class="notification-close">&times;</button>
-    `;
-    
-    // Add styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        padding: 15px 20px;
-        border-radius: 5px;
-        color: white;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        z-index: 10000;
-        animation: slideIn 0.3s ease;
-        background: ${type === 'success' ? '#3d4d1e' : '#c0392b'};
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    `;
-    
-    // Add animation keyframes
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // Add close button functionality
-    notification.querySelector('.notification-close').style.cssText = `
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.2rem;
-        cursor: pointer;
-        padding: 0;
-        line-height: 1;
-    `;
-    notification.querySelector('.notification-close').addEventListener('click', () => {
-        notification.remove();
-    });
-    
-    document.body.appendChild(notification);
-    
-    // Auto remove after 5 seconds
-    setTimeout(() => {
-        if (notification.parentElement) {
-            notification.style.animation = 'slideOut 0.3s ease';
-            setTimeout(() => notification.remove(), 300);
-        }
-    }, 5000);
-}
 
-// Add slideOut animation
-const slideOutStyle = document.createElement('style');
-slideOutStyle.textContent = `
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
+    /* ----------------------------------------------------------------------
+     * Navbar compacta ao rolar (um único listener, limitado por rAF)
+     * -------------------------------------------------------------------- */
+    if (navbar) {
+        let ticking = false;
+
+        const updateNavbar = () => {
+            navbar.classList.toggle('is-scrolled', window.scrollY > 50);
+            ticking = false;
+        };
+
+        window.addEventListener(
+            'scroll',
+            () => {
+                if (ticking) return;
+                ticking = true;
+                window.requestAnimationFrame(updateNavbar);
+            },
+            { passive: true },
+        );
+
+        updateNavbar();
     }
-`;
-document.head.appendChild(slideOutStyle);
 
-// Typewriter effect for hero text
-const heroSubtitle = document.querySelector('.hero-content h2');
-if (heroSubtitle) {
-    const text = heroSubtitle.textContent;
-    heroSubtitle.textContent = '';
-    heroSubtitle.style.borderRight = '2px solid var(--accent-color)';
-    
-    let i = 0;
-    function typeWriter() {
-        if (i < text.length) {
-            heroSubtitle.textContent += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 50);
-        } else {
-            setTimeout(() => {
-                heroSubtitle.style.borderRight = 'none';
-            }, 1000);
-        }
-    }
-    
-    // Start typing after a delay
-    setTimeout(typeWriter, 1000);
-}
+    /* ----------------------------------------------------------------------
+     * Link ativo conforme a seção visível
+     * -------------------------------------------------------------------- */
+    const sections = $$('main section[id]');
+    const navLinks = $$('.nav-links a');
 
-// Add active state to navigation links based on scroll position
-const sections = document.querySelectorAll('section[id]');
-const navLinksItems = document.querySelectorAll('.nav-links a');
-
-function highlightNavLink() {
-    const scrollY = window.scrollY;
-    
-    sections.forEach(section => {
-        const sectionHeight = section.offsetHeight;
-        const sectionTop = section.offsetTop - 100;
-        const sectionId = section.getAttribute('id');
-        
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            navLinksItems.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${sectionId}`) {
-                    link.classList.add('active');
+    if (supportsObserver && sections.length && navLinks.length) {
+        const setActiveLink = (id) => {
+            navLinks.forEach((link) => {
+                const isActive = link.getAttribute('href') === `#${id}`;
+                if (isActive) {
+                    link.setAttribute('aria-current', 'true');
+                } else {
+                    link.removeAttribute('aria-current');
                 }
             });
+        };
+
+        const spy = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) setActiveLink(entry.target.id);
+                });
+            },
+            { rootMargin: '-45% 0px -50% 0px', threshold: 0 },
+        );
+
+        sections.forEach((section) => spy.observe(section));
+    }
+
+    /* ----------------------------------------------------------------------
+     * Revelar elementos ao entrar na viewport
+     * -------------------------------------------------------------------- */
+    const revealElements = $$('.reveal');
+
+    if (revealElements.length) {
+        if (reduceMotion || !supportsObserver) {
+            revealElements.forEach((element) => element.classList.add('is-visible'));
+        } else {
+            const revealObserver = new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    });
+                },
+                { rootMargin: '0px 0px -40px 0px', threshold: 0.15 },
+            );
+
+            revealElements.forEach((element) => revealObserver.observe(element));
         }
-    });
-}
+    }
 
-window.addEventListener('scroll', highlightNavLink);
+    /* ----------------------------------------------------------------------
+     * Barras de skill (a largura vem de --level, definido no HTML)
+     * -------------------------------------------------------------------- */
+    const skillCards = $$('.skill-card');
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-    // Preload animations
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
-});
+    if (skillCards.length) {
+        if (reduceMotion || !supportsObserver) {
+            skillCards.forEach((card) => card.classList.add('is-filled'));
+        } else {
+            const skillObserver = new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+                        entry.target.classList.add('is-filled');
+                        observer.unobserve(entry.target);
+                    });
+                },
+                { threshold: 0.4 },
+            );
+
+            skillCards.forEach((card) => skillObserver.observe(card));
+        }
+    }
+
+    /* ----------------------------------------------------------------------
+     * Efeito de digitação no subtítulo do hero
+     * O texto completo permanece no DOM via .sr-only, então leitores de tela
+     * não são afetados pela animação.
+     * -------------------------------------------------------------------- */
+    const roleText = $('.hero-role-text');
+
+    if (roleText && !reduceMotion) {
+        const fullText = roleText.textContent.trim();
+        let index = 0;
+
+        roleText.textContent = '';
+        roleText.classList.add('is-typing');
+
+        const type = () => {
+            index += 1;
+            roleText.textContent = fullText.slice(0, index);
+
+            if (index < fullText.length) {
+                window.setTimeout(type, 55);
+            } else {
+                window.setTimeout(() => roleText.classList.remove('is-typing'), 1200);
+            }
+        };
+
+        window.setTimeout(type, 900);
+    }
+
+    /* ----------------------------------------------------------------------
+     * Formulário de contato (abre o cliente de e-mail, sem backend)
+     * -------------------------------------------------------------------- */
+    const form = $('#contact-form');
+
+    if (form) {
+        const status = $('.form-status', form);
+        const submitButton = $('button[type="submit"]', form);
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const showStatus = (message, type) => {
+            if (!status) return;
+            status.textContent = message;
+            status.classList.remove('form-status--error', 'form-status--success');
+            status.classList.add(`form-status--${type}`);
+            status.hidden = false;
+        };
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const data = Object.fromEntries(new FormData(form));
+            const fields = ['name', 'email', 'subject', 'message'];
+            let firstInvalid = null;
+
+            fields.forEach((field) => {
+                const input = form.elements[field];
+                if (!input) return;
+
+                const value = String(data[field] ?? '').trim();
+                const isInvalid = value === '' || (field === 'email' && !emailPattern.test(value));
+
+                if (isInvalid) {
+                    input.setAttribute('aria-invalid', 'true');
+                    firstInvalid = firstInvalid ?? input;
+                } else {
+                    input.removeAttribute('aria-invalid');
+                }
+            });
+
+            if (firstInvalid) {
+                showStatus('Preencha todos os campos com um e-mail válido.', 'error');
+                firstInvalid.focus();
+                return;
+            }
+
+            const subject = encodeURIComponent(String(data.subject).trim());
+            const body = encodeURIComponent(
+                `${String(data.message).trim()}\n\n— ${String(data.name).trim()} (${String(data.email).trim()})`,
+            );
+
+            window.location.href = `mailto:dionarley@gmail.com?subject=${subject}&body=${body}`;
+
+            showStatus('Abrindo seu aplicativo de e-mail para concluir o envio…', 'success');
+            form.reset();
+
+            if (submitButton) submitButton.blur();
+        });
+
+        // Limpa o estado de erro assim que o usuário corrige o campo
+        form.addEventListener('input', (event) => {
+            if (event.target.matches('input, textarea')) {
+                event.target.removeAttribute('aria-invalid');
+            }
+        });
+    }
+
+    /* ----------------------------------------------------------------------
+     * Ano corrente no rodapé
+     * -------------------------------------------------------------------- */
+    const yearElement = $('#year');
+
+    if (yearElement) {
+        yearElement.textContent = String(new Date().getFullYear());
+    }
+})();

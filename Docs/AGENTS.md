@@ -181,7 +181,7 @@ Copy the existing card structure in `index.html` and modify the content.
 ## Important Notes
 
 - This is a static site - no backend or API integration
-- The contact form is client-side only (simulates submission)
+- The contact form is client-side only: it validates the fields and opens the visitor's e-mail client via `mailto:` (no backend)
 - Font Awesome is loaded via CDN for icons
 - No browser-specific prefixes needed (modern browsers support all used CSS features)
 - Site is fully responsive - test on mobile, tablet, and desktop
