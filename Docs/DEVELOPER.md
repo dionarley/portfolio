@@ -3,12 +3,17 @@
 ## Quick Start
 
 ```bash
-# Development with hot reload
-docker-compose up --build
+# Servidor local com recarga automática (sem Docker)
+make dev
 
-# Production build
-docker-compose up -d portfolio-prod
+# Verificações antes de commitar
+make check
+
+# Produção com Docker
+make docker-prod
 ```
+
+Sem `make`: `python3 scripts/dev.py` (recarga) ou `python3 -m http.server 8000`.
 
 ## Docker Overview
 
@@ -24,19 +29,40 @@ docker-compose up -d portfolio-prod
 - **Base**: nginx:alpine
 - **Build**: Multi-stage not needed (static files only)
 
+## Local Development
+
+| Comando | Descrição |
+|---------|-----------|
+| `make dev` | Servidor local com recarga automática (porta 8000) |
+| `make serve` | Servidor estático simples, sem recarga |
+| `make check` | Verificações de HTML, CSS, JS e contexto Docker |
+| `make test` | Atalho para `make check` |
+| `make build` | Constrói a imagem de produção |
+| `make docker-dev` | Sobe o container de desenvolvimento |
+| `make docker-prod` | Sobe o container de produção |
+| `make docker-down` | Para os containers |
+| `make clean` | Remove caches locais |
+
+O `scripts/dev.py` usa só a biblioteca padrão: serve o site, injeta um cliente
+de recarga no HTML e observa `index.html`, `styles.css` e `script.js`. Para
+testar no celular na mesma rede: `python3 scripts/dev.py --host 0.0.0.0`.
+
+Os atalhos de Docker (`scripts/docker.sh`) detectam automaticamente
+`docker compose`, `podman-compose` ou `podman compose`.
+
 ## Workflows
 
 ### Development
 
 ```bash
-# Start with hot reload
-docker-compose up --build
+# Servidor local com recarga automática (sem Docker)
+make dev
 
-# View logs
-docker-compose logs -f
+# Container de desenvolvimento (volume + porta 8080)
+make docker-dev
 
-# Stop
-docker-compose down
+# Parar os containers
+make docker-down
 ```
 
 ### Production
@@ -122,8 +148,8 @@ docker-compose up --build
 ## Validation
 
 ```bash
-# Verificações estáticas: HTML, CSS, JS, assets e contexto Docker
-python3 tests/check.py
+make check
+# ou: python3 tests/check.py
 ```
 
 O hook de pre-commit roda o mesmo script. Ative uma vez por clone:

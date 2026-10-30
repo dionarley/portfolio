@@ -2,7 +2,7 @@ name: checks
 
 on:
   push:
-    branches: [master]
+    branches: [master, develop]
   pull_request:
 
 jobs:
@@ -13,7 +13,38 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run checks
-        run: python3 tests/check.py
+        run: make check
+
+      - name: Dev server smoke test
+        run: |
+          set -euo pipefail
+
+          python3 scripts/dev.py --port 8000 > /tmp/dev-server.log 2>&1 &
+          ready=0
+          for _ in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:8000/ >/dev/null 2>&1; then
+              ready=1
+              break
+            fi
+            sleep 0.5
+          done
+          if [ "$ready" -ne 1 ]; then
+            cat /tmp/dev-server.log
+            echo "::error::dev server não respondeu"
+            exit 1
+          fi
+
+          html=$(curl -fsS http://127.0.0.1:8000/)
+          if [[ "$html" != *"/__dev/client.js"* ]]; then
+            echo "::error::dev server não injetou o cliente de recarga"
+            exit 1
+          fi
+
+          client=$(curl -fsS http://127.0.0.1:8000/__dev/client.js)
+          if [[ "$client" != *"EventSource"* ]]; then
+            echo "::error::cliente de recarga não foi servido"
+            exit 1
+          fi
 
   docker:
     name: Docker build and smoke test
@@ -30,30 +61,50 @@ jobs:
 
           docker run -d --name portfolio -p 8080:80 portfolio:ci
 
+          ready=0
           for _ in $(seq 1 30); do
             if curl -fsS http://127.0.0.1:8080/ >/dev/null 2>&1; then
+              ready=1
               break
             fi
             sleep 1
           done
-
-          fail() {
-            echo "::error::$1"
+          if [ "$ready" -ne 1 ]; then
             docker logs portfolio
+            echo "::error::container não respondeu"
             exit 1
-          }
+          fi
+
+          html=$(curl -fsS http://127.0.0.1:8080/)
+          if [[ "$html" != *'<html lang="pt-BR">'* ]]; then
+            echo "::error::index.html sem lang pt-BR"
+            exit 1
+          fi
+          if [[ "$html" != *"Dionarley"* ]]; then
+            echo "::error::index.html sem o nome no conteúdo"
+            exit 1
+          fi
 
           expect() {
             local path="$1"
             local expected="$2"
-            local headers
-            headers=$(curl -sSI "http://127.0.0.1:8080${path}") || fail "falha ao requisitar ${path}"
-            echo "$headers" | head -1 | grep -q "200" || fail "${path} não respondeu 200"
-            echo "$headers" | grep -qi "content-type: .*${expected}" || fail "${path} com content-type inesperado"
+            local headers lower
+            headers=$(curl -sSI "http://127.0.0.1:8080${path}") || {
+              echo "::error::falha ao requisitar ${path}"
+              exit 1
+            }
+            lower=${headers,,}
+            if [[ "$headers" != *" 200 "* ]]; then
+              echo "::error::${path} não respondeu 200"
+              docker logs portfolio
+              exit 1
+            fi
+            if [[ "$lower" != *"content-type: "*"${expected}"* ]]; then
+              echo "::error::${path} com content-type inesperado"
+              docker logs portfolio
+              exit 1
+            fi
           }
-
-          curl -fsS http://127.0.0.1:8080/ | grep -q '<html lang="pt-BR">' || fail "index.html sem lang pt-BR"
-          curl -fsS http://127.0.0.1:8080/ | grep -q "Dionarley" || fail "index.html sem o nome no conteúdo"
 
           expect /styles.css "text/css"
           expect /script.js "javascript"

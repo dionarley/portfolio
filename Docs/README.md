@@ -20,20 +20,24 @@ portfolio/
 ├── script.js         # JavaScript
 ├── Dockerfile       # Container Docker
 ├── nginx.conf       # Configuração nginx
-└── docker-compose.yml # Orquestração Docker
+├── docker-compose.yml # Orquestração Docker
+├── Makefile          # Atalhos de desenvolvimento
+├── scripts/          # Servidor local e atalhos Docker
+├── tests/            # Verificações antes do commit
+└── .github/          # CI
 ```
 
 ## Quick Start
 
 ```bash
-# Desenvolvimento
-docker-compose up --build
+# Desenvolvimento local com recarga automática
+make dev
 
-# Produção
-docker-compose up -d portfolio-prod
+# Verificações antes do commit
+make check
 
-# Testar
-curl http://localhost:8080
+# Produção com Docker
+make docker-prod
 ```
 
 ## Tecnologias
@@ -43,3 +47,4 @@ curl http://localhost:8080
 - JavaScript vanilla
 - nginx:alpine
 - Docker + Compose
+- Python (apenas scripts de desenvolvimento)

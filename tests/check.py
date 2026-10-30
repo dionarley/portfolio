@@ -428,6 +428,21 @@ def check_docker(report: Report, assets: set[str]) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Scripts de desenvolvimento
+# ---------------------------------------------------------------------------
+def check_scripts(report: Report) -> None:
+    for script in sorted((ROOT / "scripts").glob("*.py")):
+        try:
+            compile(script.read_text(encoding="utf-8"), str(script), "exec")
+        except SyntaxError as error:
+            report.error(
+                f"scripts/{script.name}",
+                f"erro de sintaxe: {error.msg}",
+                error.lineno,
+            )
+
+
+# ---------------------------------------------------------------------------
 def main() -> int:
     report = Report()
 
@@ -435,6 +450,7 @@ def main() -> int:
     check_css(report, inline_vars)
     check_js(report)
     check_docker(report, assets)
+    check_scripts(report)
 
     print(report.render())
     return 1 if report.errors else 0

@@ -18,6 +18,8 @@ portfolio/
 ├── Dockerfile        # Docker image definition
 ├── nginx.conf        # Nginx configuration
 ├── docker-compose.yml # Docker Compose setup
+├── Makefile          # Atalhos de desenvolvimento
+├── scripts/          # Servidor local e atalhos Docker
 ├── tests/check.py    # Verificações antes do commit
 ├── .githooks/        # Hooks do git (pre-commit)
 ├── .github/          # CI (GitHub Actions)
@@ -29,11 +31,20 @@ portfolio/
 Simply open `index.html` in any modern web browser. No build step or server required.
 
 - **View locally**: Open the file directly in browser (file:// protocol)
-- **Development**: Use a local server like `python -m http.server` or VS Code Live Server for hot reload
+- **Development**: `make dev` (servidor com recarga automática) ou `python3 -m http.server 8000`
 
 ## Build/Lint/Test Commands
 
 This project uses Docker with nginx for serving. No build system required.
+
+### Local Development
+
+```bash
+make dev      # servidor com recarga automática (http://localhost:8000)
+make serve    # servidor estático simples
+make check    # verificações antes do commit
+make help     # lista os atalhos
+```
 
 ### Docker Commands
 
@@ -57,7 +68,7 @@ docker-compose down
 ### Testing
 
 - **Manual**: Open http://localhost:8080 in browser
-- **Automated**: `python3 tests/check.py` valida HTML, CSS, JS, assets e o contexto Docker
+- **Automated**: `make check` (ou `python3 tests/check.py`) valida HTML, CSS, JS, assets e o contexto Docker
 - **Pre-commit hook**: `git config core.hooksPath .githooks` (uma vez por clone) bloqueia commits quebrados
 - **CI**: `.github/workflows/ci.yml` roda as verificações, constrói a imagem e testa os arquivos servidos
 
@@ -187,6 +198,7 @@ Copy the existing card structure in `index.html` and modify the content.
 - Font Awesome (icons) and Inter/JetBrains Mono (Google Fonts) load via CDN
 - No browser-specific prefixes needed (modern browsers support all used CSS features)
 - Site is fully responsive - test on mobile, tablet, and desktop
+- The `Makefile` and `scripts/` are optional development conveniences; the site itself has no build step
 
 ## License
 
