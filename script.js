@@ -94,7 +94,7 @@
             navLinks.forEach((link) => {
                 const isActive = link.getAttribute('href') === `#${id}`;
                 if (isActive) {
-                    link.setAttribute('aria-current', 'true');
+                    link.setAttribute('aria-current', 'page');
                 } else {
                     link.removeAttribute('aria-current');
                 }
@@ -242,8 +242,9 @@
 
             window.location.href = `mailto:dionarley@gmail.com?subject=${subject}&body=${body}`;
 
+            // Mantém os valores preenchidos: se nenhum cliente de e-mail abrir,
+            // o visitante ainda pode copiar o texto e tentar de novo.
             showStatus('Abrindo seu aplicativo de e-mail para concluir o envio…', 'success');
-            form.reset();
 
             if (submitButton) submitButton.blur();
         });

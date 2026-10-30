@@ -141,7 +141,7 @@ Edit CSS variables in `:root` at the top of `styles.css`:
 ```css
 :root {
     --primary-color: #3d4d1e;
-    --secondary-color: #6b7a18;
+    --primary-dark: #2a3515;
     --accent-color: #e0b418;
     /* ... */
 }

@@ -8,7 +8,6 @@
     --primary-color: #3d4d1e;
     --primary-light: #4d5f26;
     --primary-dark: #2a3515;
-    --secondary-color: #6b7a18;
     --accent-color: #e0b418;
     --accent-light: #f2c62c;
     --accent-dark: #c39a0d;
@@ -20,11 +19,6 @@
     --surface: #ffffff;
     --surface-muted: #f4f5ef;
     --surface-sunken: #e9ebe1;
-    --gray-light: #f4f5ef;
-    --gray-lighter: #e9ebe1;
-    --gray-medium: #c9cdc0;
-    --gray-dark: #62685a;
-    --gray-darker: #4a4a4a;
     --text-color: #2e3327;
     --text-light: #565c4b;
     --text-muted: #6f7566;
@@ -367,7 +361,9 @@ section[id] {
 
 .nav.is-open {
     border-bottom: 1px solid var(--border);
-    max-height: 360px;
+    max-height: calc(100vh - var(--nav-offset));
+    max-height: calc(100dvh - var(--nav-offset));
+    overflow-y: auto;
     padding: 12px 20px 20px;
     visibility: visible;
 }
@@ -393,7 +389,7 @@ section[id] {
     color: var(--primary-color);
 }
 
-.nav-links a[aria-current="true"] {
+.nav-links a[aria-current="page"] {
     color: var(--primary-color);
 }
 
@@ -999,7 +995,7 @@ section {
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: var(--text-muted);
+    color: var(--text-light);
     opacity: 1;
 }
 
@@ -1173,7 +1169,7 @@ section {
     }
 
     .nav-links a:hover::after,
-    .nav-links a[aria-current="true"]::after {
+    .nav-links a[aria-current="page"]::after {
         width: 100%;
     }
 
