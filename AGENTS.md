@@ -159,7 +159,7 @@ Copy the existing card structure in `index.html` and modify the content.
 
 ## Performance Guidelines
 
-- Minimize external dependencies (Font Awesome CDN is acceptable)
+- Minimize external dependencies (Font Awesome and Google Fonts are the only CDNs)
 - Optimize images before adding (use WebP format when possible)
 - Lazy load below-the-fold content if needed
 - Keep total page weight under 500KB
@@ -179,7 +179,7 @@ Copy the existing card structure in `index.html` and modify the content.
 
 - This is a static site - no backend or API integration
 - The contact form is client-side only: it validates the fields and opens the visitor's e-mail client via `mailto:` (no backend)
-- Font Awesome is loaded via CDN for icons
+- Font Awesome (icons) and Inter/JetBrains Mono (Google Fonts) load via CDN
 - No browser-specific prefixes needed (modern browsers support all used CSS features)
 - Site is fully responsive - test on mobile, tablet, and desktop
 

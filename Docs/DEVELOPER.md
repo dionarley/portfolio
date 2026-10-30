@@ -85,7 +85,7 @@ docker-compose down
 
 ### Add new dependencies
 
-- Font Awesome: CDN in `index.html`
+- Font Awesome (icons) and Google Fonts (Inter, JetBrains Mono): CDN in `index.html`
 - No npm/pip - pure static site
 
 ## Troubleshooting
